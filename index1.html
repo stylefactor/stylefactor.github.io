@@ -789,100 +789,7 @@ footer {
     </div>
 </section>
 
-<script>
-    // Cargar testimonios del almacenamiento local al cargar la página
-    document.addEventListener('DOMContentLoaded', function() {
-        const testimonials = JSON.parse(localStorage.getItem('testimonials')) || [];
-        testimonials.forEach(testimonial => {
-            addTestimonialToDOM(testimonial.name, testimonial.rating, testimonial.comment);
-        });
-    });
 
-    document.getElementById('reviewForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Evita el envío del formulario
-
-        // Captura los valores del formulario
-        const name = document.getElementById('name').value;
-        const rating = document.querySelector('input[name="rating"]:checked').value;
-        const comment = document.getElementById('comment').value;
-
-        // Crea un objeto para el testimonio
-        const testimonial = { name, rating, comment };
-
-        // Agrega el testimonio al almacenamiento local
-        const testimonials = JSON.parse(localStorage.getItem('testimonials')) || [];
-        testimonials.push(testimonial);
-        localStorage.setItem('testimonials', JSON.stringify(testimonials));
-
-        // Agrega el testimonio al DOM
-        addTestimonialToDOM(name, rating, comment);
-
-        // Limpia el formulario
-        document.getElementById('reviewForm').reset();
-    });
-
-    function addTestimonialToDOM(name, rating, comment) {
-        const testimonialCard = document.createElement('div');
-        testimonialCard.classList.add('testimonial-card');
-        testimonialCard.innerHTML = `
-            <div class="rating">${'★'.repeat(rating)}</div>
-            <p class="quote">"${comment}"</p>
-            <p class="author">- ${name}</p>
-            
-        `;
-        document.getElementById('testimonialGrid').prepend(testimonialCard);
-    }
-
-    function deleteTestimonial(name, button) {
-        const testimonials = JSON.parse(localStorage.getItem('testimonials')) || [];
-        const updatedTestimonials = testimonials.filter(testimonial => testimonial.name !== name);
-        localStorage.setItem('testimonials', JSON.stringify(updatedTestimonials));
-        button.parentElement.remove(); // Elimina el testimonio del DOM
-    }
-</script>
-
-<style>
-    .testimonial-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        margin-bottom: 3rem;
-    }
-
-    .testimonial-card {
-        background-color: var(--accent-color);
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        position: relative;
-    }
-
-    .rating {
-        color: #ffcc00;
-        margin-bottom: 1rem;
-        font-size: 1.5rem;
-    }
-
-    .quote {
-        font-style: italic;
-        margin-bottom: 1.5rem;
-        color: #555;
-    }
-
-    .author {
-        font-weight: bold;
-        color: var(--secondary-color);
-    }
-
-    .delete-btn {
-        margin-top: 1rem;
-        cursor: pointer;
-        background: none;
-        border: none;
-        color: #ff0000; /* Color rojo para el botón de eliminar */
-        font-size: 1.2rem;
-    }
-</style>
 
 
     <footer>
@@ -903,15 +810,5 @@ footer {
             </div>
         </div>
     </footer>
-    <script>
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-    </script>
 </body>
 </html>
